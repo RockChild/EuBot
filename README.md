@@ -1,5 +1,5 @@
 # EuBot
-Small framework for automated scenarios for articles publishing 
+Small framework for automated scenario for articles publishing 
 ## Configuration
  - Install Maven, Git, JDK
  - Set local variables for installed tools
