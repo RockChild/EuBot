@@ -59,9 +59,8 @@ private ConfirmationPage confirmationPage;
             System.out.println("Warning: Duplicated!");
             checkDetailsPage.removeDisableAttribute();
             checkDetailsPage.sumbit();
-            return;
         }
-        if (checkDetailsPage.isError()) {
+        else if  (checkDetailsPage.isError()) {
             System.out.println("Error: 502:004. Rerun.");
             justDoIt(article);
         } else {

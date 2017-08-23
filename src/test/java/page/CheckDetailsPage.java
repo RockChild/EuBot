@@ -58,6 +58,7 @@ public class CheckDetailsPage extends Page {
     }
 
     public void sumbit() {
+        waitForJs();
         waitSleepClick(submit);
     }
 
