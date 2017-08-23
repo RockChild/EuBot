@@ -26,10 +26,17 @@ public class Page {
 
     protected void waitSleepClick(WebElement element) {
         try {
-//            waitForJs();
+            waitForJs();
             wait.until((ExpectedConditions.visibilityOf(element)));
             wait.until(ExpectedConditions.elementToBeClickable(element));
-        } catch (WebDriverException e) {
+        } catch (TimeoutException e) {
+            System.out.println("================\n=============\n================\n================");
+            System.out.println("Timeout!!! Element wasnt found!");
+            e.printStackTrace();
+            waitSleepClick(element);
+        }
+        catch (WebDriverException e) {
+            System.out.println("================\n=============\n================\n================");
             System.out.println("WD Exception. Rerun");
             e.printStackTrace();
             waitSleepClick(element);

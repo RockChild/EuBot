@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CheckDetailsPage extends Page {
 
-    @FindBy(css = "#submit[value='Опубликовать']")
+    @FindBy(id = "submit")
     private WebElement submit;
 
     @FindBy(xpath = "//h3[contains(text(), 'Дублирование объявления!')]")
@@ -58,7 +58,6 @@ public class CheckDetailsPage extends Page {
     }
 
     public void sumbit() {
-        waitForJs();
         waitSleepClick(submit);
     }
 
