@@ -19,7 +19,7 @@ public class CheckDetailsPage extends Page {
     @FindBy(xpath = "//body[contains(text(), 'Error: 502:004')]")
     private WebElement lblError;
 
-    @FindBy(xpath = "//li[@class='current']/a/span[contains(text(), 'Проверка введённых данных')]")
+    @FindBy(xpath = "//li[@class='current']/a/span")
     private WebElement lblCurrentTab;
 
     public CheckDetailsPage() {
@@ -75,14 +75,18 @@ public class CheckDetailsPage extends Page {
         sleep(5);
         waitForJs();
         try {
-            System.out.println("-----------------------------------------------------");
-            System.out.println("Starting removing");
-            System.out.println("-----------------------------------------------------");
+            if (!submit.isEnabled()) {
+                System.out.println("-----------------------------------------------------");
+                System.out.println("Starting removing");
+                System.out.println("-----------------------------------------------------");
 //        js.executeScript("document.getElementById('submit').disabled = false;");
-        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
+                js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
 //        js.executeScript("arguments[0].removeAttribute('disabled', disabled)", submit);
 //        js.executeScript("arguments[0].removeAttribute('disabled')", submit);
-        System.out.println("--------------------I tried everything!!!---------------------");
+                System.out.println("--------------------I tried everything!!!---------------------");
+            } else {
+                System.out.println("No need to remove disabling");
+            }
         } catch (JavascriptException e) {
             printError(e, "Something wrong with JS");
             if (withCycle) {
