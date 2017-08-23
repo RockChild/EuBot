@@ -26,9 +26,10 @@ public class Page {
 
     protected void waitSleepClick(WebElement element) {
         try {
-            waitForJs();
+//            waitForJs();
             wait.until(ExpectedConditions.elementToBeClickable(element));
         } catch (WebDriverException e) {
+            System.out.println("WD Exception. Rerun");
             e.printStackTrace();
             waitSleepClick(element);
         }
