@@ -61,14 +61,15 @@ private ConfirmationPage confirmationPage;
         }
         //todo: need refactor
         checkDetailsPage.removeDisableAttribute();
-        if (checkDetailsPage.isArticleDuplicated()) {
-            System.out.println("Warning: Duplicated!");
-            checkDetailsPage.removeDisableAttribute();
-            checkDetailsPage.sumbit();
-        } else {
-            checkDetailsPage.sumbit();
-            System.out.println("Success: Published!");
-        }
+//        if (checkDetailsPage.isArticleDuplicated()) {
+//            System.out.println("Warning: Duplicated!");
+//            checkDetailsPage.removeDisableAttribute();
+//            checkDetailsPage.sumbit();
+//        } else {
+//            checkDetailsPage.sumbit();
+//            System.out.println("Success: Published!");
+//        }
+        checkDetailsPage.sumbit();
         assertTrue("Confirmation page wasn't loaded", confirmationPage.isPageLoaded());
         System.out.println("Finish");
     }
