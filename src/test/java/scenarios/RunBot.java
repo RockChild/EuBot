@@ -59,6 +59,8 @@ private ConfirmationPage confirmationPage;
             System.out.println("Error: 502:004. Rerun.");
             justDoIt(article);
         }
+        //todo: need refactor
+        checkDetailsPage.removeDisableAttribute();
         if (checkDetailsPage.isArticleDuplicated()) {
             System.out.println("Warning: Duplicated!");
             checkDetailsPage.removeDisableAttribute();

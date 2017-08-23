@@ -29,7 +29,8 @@ public class CheckDetailsPage extends Page {
     public boolean isPageLoaded() {
         try {
             waitForJs();
-            wait.until(ExpectedConditions.visibilityOf(lblCurrentTab));
+            wait.withTimeout(60, TimeUnit.SECONDS).
+                    until(ExpectedConditions.visibilityOf(lblCurrentTab));
             return true;
         } catch (TimeoutException ex) {
             printError(ex, "Tab wasnt opened?????");
