@@ -19,7 +19,7 @@ public class CheckDetailsPage extends Page {
     @FindBy(xpath = "//body[contains(text(), 'Error: 502:004')]")
     private WebElement lblError;
 
-    @FindBy(xpath = "//li[@class='current']/a/span")
+    @FindBy(xpath = "//li[@class='current']/a/span[contains(text(), 'Проверка введённых данных')]")
     private WebElement lblCurrentTab;
 
     public CheckDetailsPage() {
@@ -30,14 +30,15 @@ public class CheckDetailsPage extends Page {
         try {
             waitForJs();
             wait.until(ExpectedConditions.visibilityOf(lblCurrentTab));
-            return lblCurrentTab.getText().equals("Проверка введённых данных");
+            return true;
         } catch (TimeoutException ex) {
+            printError(ex, "Tab wasnt opened?????");
             return false;
         }
     }
 
     public boolean isArticleDuplicated() {
-
+        sleep(5);
         if (isPageLoaded()) {
             try {
                 wait.until(ExpectedConditions.visibilityOf(lblDuplicated));
