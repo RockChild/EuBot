@@ -55,14 +55,14 @@ private ConfirmationPage confirmationPage;
         //Alert in case the article text is too short
         handleAlertIfAppears(article.getArticleBody());
 
+        if  (checkDetailsPage.isError()) {
+            System.out.println("Error: 502:004. Rerun.");
+            justDoIt(article);
+        }
         if (checkDetailsPage.isArticleDuplicated()) {
             System.out.println("Warning: Duplicated!");
             checkDetailsPage.removeDisableAttribute();
             checkDetailsPage.sumbit();
-        }
-        else if  (checkDetailsPage.isError()) {
-            System.out.println("Error: 502:004. Rerun.");
-            justDoIt(article);
         } else {
             checkDetailsPage.sumbit();
             System.out.println("Success: Published!");
