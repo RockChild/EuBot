@@ -79,8 +79,8 @@ public class CheckDetailsPage extends Page {
             System.out.println("Starting removing");
             System.out.println("-----------------------------------------------------");
 //        js.executeScript("document.getElementById('submit').disabled = false;");
-//        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
-        js.executeScript("arguments[0].removeAttribute('disabled', disabled)", submit);
+        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
+//        js.executeScript("arguments[0].removeAttribute('disabled', disabled)", submit);
 //        js.executeScript("arguments[0].removeAttribute('disabled')", submit);
         System.out.println("--------------------I tried everything!!!---------------------");
         } catch (JavascriptException e) {
