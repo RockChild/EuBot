@@ -64,6 +64,7 @@ public class CheckDetailsPage extends Page {
     }
 
     public void removeDisableAttribute() {
+        waitForJs();
         js.executeScript("document.getElementById('submit').disabled = false;");
     }
 }

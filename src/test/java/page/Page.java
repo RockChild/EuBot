@@ -17,6 +17,8 @@ public class Page {
     FluentWait<WebDriver> wait;
     JavascriptExecutor js;
 
+    String x = "================\n================\n====ReadMe====\n================\n================";
+
     public Page() {
         driver = WDHub.getWD();
         wait = WDHub.getWait();
@@ -26,20 +28,26 @@ public class Page {
 
     protected void waitSleepClick(WebElement element) {
         try {
-            waitForJs();
-            wait.until((ExpectedConditions.visibilityOf(element)));
-            wait.until(ExpectedConditions.elementToBeClickable(element));
+            try {
+                waitForJs();
+                wait.until((ExpectedConditions.visibilityOf(element)));
+            } catch (TimeoutException e) {
+                printError(e, "Timeout!!! Element wasnt found!");
+            return;
+            }
+            if (!element.isEnabled()) {
+                wait.until(ExpectedConditions.elementToBeClickable(element));
+            }
         } catch (TimeoutException e) {
-            System.out.println("================\n=============\n================\n================");
-            System.out.println("Timeout!!! Element wasnt found!");
-            e.printStackTrace();
+            printError(e, "Timeout!!! Element is Disabled! Remove \"disabled \" attribute!");
             waitSleepClick(element);
         }
         catch (WebDriverException e) {
-            System.out.println("================\n=============\n================\n================");
-            System.out.println("WD Exception. Rerun");
-            e.printStackTrace();
+            printError(e, "WD Exception. Rerun");
             waitSleepClick(element);
+        } catch (Exception e) {
+            printError(e, "Unknown error");
+            return;
         }
         try {
             Thread.sleep(1000);
@@ -47,6 +55,12 @@ public class Page {
             e.printStackTrace();
         }
         element.click();
+    }
+
+    private void printError(Exception e, String errorMessage) {
+        System.out.println(x);
+        System.out.println(errorMessage);
+        e.printStackTrace();
     }
 
     void waitForJs() {
