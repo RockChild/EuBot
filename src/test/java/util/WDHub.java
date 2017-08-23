@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 public class WDHub {
@@ -15,7 +16,8 @@ public class WDHub {
     static int waitTimeOut = 60;
 
     public static WebDriver build() {
-        System.setProperty("webdriver.chrome.driver" ,  "/Users/pavlo.shtefanesku/Downloads/chromedriver");
+        System.setProperty("webdriver.chrome.driver" ,  new File("src/test/resources/chromedriver")
+                .getAbsolutePath());
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, waitTimeOut)
                 .ignoring(NoSuchElementException.class)

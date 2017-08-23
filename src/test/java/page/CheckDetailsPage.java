@@ -24,7 +24,7 @@ public class CheckDetailsPage extends Page {
 
     public boolean isPageLoaded() {
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(submit));
+            wait.until(ExpectedConditions.visibilityOf(submit));
             return true;
         } catch (TimeoutException ex) {
             return false;
@@ -35,6 +35,7 @@ public class CheckDetailsPage extends Page {
         if (isPageLoaded()) {
             try {
                 wait.until(ExpectedConditions.visibilityOf(lblDuplicated));
+                wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(submit)));
                 return true;
             } catch (TimeoutException ex) {
                 return false;

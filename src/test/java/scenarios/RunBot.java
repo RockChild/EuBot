@@ -30,9 +30,14 @@ private ConfirmationPage confirmationPage;
 
 
     @Test
-    public void createArticle() throws UnsupportedEncodingException, FileNotFoundException {
+    public void createArticle() {
         for (Article article : DataParser.parse())
-            justDoIt(article);
+            try {
+                justDoIt(article);
+            } catch (Exception e) {
+                System.out.println("Some error. Just call the Police!");
+                e.printStackTrace();
+            }
     }
 
     private void justDoIt(Article article) {
@@ -46,18 +51,20 @@ private ConfirmationPage confirmationPage;
                 .enterCompanyName(article.getCompany())
                 .enterEmail(article.getEmail())
                 .submit();
+
         //Alert in case the article text is too short
         handleAlertIfAppears(article.getArticleBody());
+
         if (checkDetailsPage.isArticleDuplicated()) {
-            System.out.println("Duplicated!!!");
+            System.out.println("Warning: Duplicated!");
             return;
         }
         if (checkDetailsPage.isError()) {
-            System.out.println("Error!!!");
+            System.out.println("Error: 502:004. Rerun.");
             justDoIt(article);
         } else {
             checkDetailsPage.sumbit();
-            System.out.println("Sent!");
+            System.out.println("Success: Published!");
         }
         assertTrue("Confirmation page wasn't loaded", confirmationPage.isPageLoaded());
         System.out.println("Finish");
