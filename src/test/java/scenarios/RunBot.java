@@ -83,4 +83,9 @@ private ConfirmationPage confirmationPage;
             //do nothing, it's ok
         }
     }
+
+    @Test
+    public void t() {
+        System.out.println(System.getProperty("os.name").toLowerCase());
+    }
 }
