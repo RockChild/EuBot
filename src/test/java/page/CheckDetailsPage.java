@@ -19,7 +19,7 @@ public class CheckDetailsPage extends Page {
     @FindBy(xpath = "//body[contains(text(), 'Error: 502:004')]")
     private WebElement lblError;
 
-    @FindBy(xpath = "//li[@class='current']/a/span")
+    @FindBy(css = "li.current>a span")
     private WebElement lblCurrentTab;
 
     public CheckDetailsPage() {
