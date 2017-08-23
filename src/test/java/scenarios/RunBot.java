@@ -57,6 +57,8 @@ private ConfirmationPage confirmationPage;
 
         if (checkDetailsPage.isArticleDuplicated()) {
             System.out.println("Warning: Duplicated!");
+            checkDetailsPage.removeDisableAttribute();
+            checkDetailsPage.sumbit();
             return;
         }
         if (checkDetailsPage.isError()) {

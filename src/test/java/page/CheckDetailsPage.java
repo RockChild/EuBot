@@ -57,4 +57,8 @@ public class CheckDetailsPage extends Page {
     public void sumbit() {
         waitSleepClick(submit);
     }
+
+    public void removeDisableAttribute() {
+        js.executeScript("document.getElementById('submit').disabled = false;");
+    }
 }

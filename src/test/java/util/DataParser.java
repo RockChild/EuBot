@@ -13,31 +13,28 @@ import java.util.Collections;
 import java.util.List;
 
 public class DataParser {
-    private static final String WRONG_FORMAT = "Wrong data.json format. Just validate it!";
-    //    static private String PATH = "C:/json/data.json";
-    static private final String PATH = "src/test/resources/data.json";
-    static private JsonStreamParser parser;
-    static private Reader reader;
-    private static final String FILE_NOT_FOUND = "'data.json' was not found under '%s' in the project.\nJust check it!";;
-    private static final String PARSING_ERROR = "Error while parsing. Unexpected format. \nJust call the Police!";
+    //    static private String path = "C:/json/data.json";
+    static private String path = "src/test/resources/data.json";
 
     public static List<Article> parse() {
         List<Article> articlList = new ArrayList<>();
-        try (InputStream is = new FileInputStream(PATH)){
-            reader = new InputStreamReader(is, "UTF-8");
+        InputStream is = null;
+        try {
+            is = new FileInputStream(path);
         } catch (FileNotFoundException e) {
-            System.out.println(String.format(FILE_NOT_FOUND, PATH));
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println(WRONG_FORMAT);
             e.printStackTrace();
         }
-
+        Reader r = null;
+        try {
+            r = new InputStreamReader(is, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        parser = new JsonStreamParser(reader);
+        JsonStreamParser p = new JsonStreamParser(r);
 
-        while (parser.hasNext()) {
-            JsonElement e = parser.next();
+        while (p.hasNext()) {
+            JsonElement e = p.next();
             if (e.isJsonObject()) {
                 return Collections.singletonList(gson.fromJson(e, Article.class));
             }
@@ -45,9 +42,6 @@ public class DataParser {
                 for (JsonElement element : e.getAsJsonArray()) {
                     articlList.add(gson.fromJson(element, Article.class));
                 }
-            } else {
-                System.out.println(PARSING_ERROR);
-                return Collections.EMPTY_LIST;
             }
         }
         return articlList;

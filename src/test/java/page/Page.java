@@ -11,11 +11,13 @@ public class Page {
 
     WebDriver driver;
     FluentWait<WebDriver> wait;
+    JavascriptExecutor js;
 
     public Page() {
         driver = WDHub.getWD();
         wait = WDHub.getWait();
         PageFactory.initElements(WDHub.getWD(), this);
+        js = (JavascriptExecutor) driver;
     }
 
     protected void waitSleepClick(WebElement element) {
@@ -31,7 +33,7 @@ public class Page {
     protected void setValueJs(String str) {
         try {
             String jScript = "document.getElementsByTagName('body')[0].innerHTML+='%s';";
-            ((JavascriptExecutor) driver).executeScript(String.format(jScript, str));
+            js.executeScript(String.format(jScript, str));
         } catch (JavascriptException e) {
             e.printStackTrace();
             setValueJs(str);

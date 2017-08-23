@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class WDHub {
     static WebDriver driver;
     static FluentWait<WebDriver> wait;
-    static int waitTimeOut = 60;
+    static int waitTimeOut = 120;
     static String os;
 
     public static WebDriver build() {
