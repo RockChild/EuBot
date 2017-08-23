@@ -37,6 +37,7 @@ public class CheckDetailsPage extends Page {
     }
 
     public boolean isArticleDuplicated() {
+
         if (isPageLoaded()) {
             try {
                 wait.until(ExpectedConditions.visibilityOf(lblDuplicated));
@@ -69,11 +70,13 @@ public class CheckDetailsPage extends Page {
     }
 
     public void removeDisabledAttribute(boolean withCycle) {
+        sleep(5);
         waitForJs();
         try {
         js.executeScript("document.getElementById('submit').disabled = false;");
         js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
         js.executeScript("arguments[0].removeAttribute('disabled')", submit);
+            System.out.println("--------------------I tried everything!!!---------------------");
         } catch (JavascriptException e) {
             printError(e, "Something wrong with JS");
             if (withCycle) {
@@ -82,6 +85,7 @@ public class CheckDetailsPage extends Page {
                 printError(e, "it didn't worked, js disabled attr");
             }
         }
+        sleep(5);
 
     }
 }

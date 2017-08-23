@@ -49,12 +49,16 @@ public class Page {
             printError(e, "Unknown error");
             return;
         }
+        sleep(1);
+        element.click();
+    }
+
+    protected void sleep(int secs) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(secs * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        element.click();
     }
 
     protected void printError(Exception e, String errorMessage) {
@@ -64,6 +68,7 @@ public class Page {
     }
 
     void waitForJs() {
+        sleep(5);
         try {
             wait.until(driver -> ((JavascriptExecutor) driver).executeScript(
                     "return document.readyState").equals("complete"));
