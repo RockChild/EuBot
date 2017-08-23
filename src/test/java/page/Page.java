@@ -7,6 +7,10 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import util.WDHub;
 
+import java.sql.Time;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 public class Page {
 
     WebDriver driver;
@@ -21,7 +25,13 @@ public class Page {
     }
 
     protected void waitSleepClick(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            waitForJs();
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+        } catch (WebDriverException e) {
+            e.printStackTrace();
+            waitSleepClick(element);
+        }
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -29,6 +39,18 @@ public class Page {
         }
         element.click();
     }
+
+    void waitForJs() {
+        try {
+            wait.until(driver -> ((JavascriptExecutor) driver).executeScript(
+                    "return document.readyState").equals("complete"));
+        } catch (Exception e) {
+            System.out.println("Javascript waiter caught an exception. Repeat.");
+            e.printStackTrace();
+            waitForJs();
+        }
+    }
+
 
     protected void setValueJs(String str) {
         try {

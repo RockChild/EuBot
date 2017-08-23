@@ -1,1 +1,1 @@
-mvm test
+call mvm test

@@ -24,6 +24,7 @@ public class CheckDetailsPage extends Page {
 
     public boolean isPageLoaded() {
         try {
+            waitForJs();
             wait.until(ExpectedConditions.visibilityOf(submit));
             return true;
         } catch (TimeoutException ex) {
@@ -34,6 +35,7 @@ public class CheckDetailsPage extends Page {
     public boolean isArticleDuplicated() {
         if (isPageLoaded()) {
             try {
+                waitForJs();
                 wait.until(ExpectedConditions.visibilityOf(lblDuplicated));
                 wait.until(ExpectedConditions.not(ExpectedConditions.elementToBeClickable(submit)));
                 return true;
@@ -46,6 +48,7 @@ public class CheckDetailsPage extends Page {
 
     public boolean isError() {
         try {
+            waitForJs();
             wait.withTimeout(2, TimeUnit.SECONDS)
                 .until(ExpectedConditions.visibilityOf(lblError));
             return true;
