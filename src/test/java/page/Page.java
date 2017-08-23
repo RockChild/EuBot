@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import util.WDHub;
 
 import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -36,7 +37,7 @@ public class Page {
             return;
             }
             if (!element.isEnabled()) {
-                wait.until(ExpectedConditions.elementToBeClickable(element));
+                wait.withTimeout(10, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(element));
             }
         } catch (TimeoutException e) {
             printError(e, "Timeout!!! Element is Disabled! Remove \"disabled \" attribute!");
@@ -68,7 +69,6 @@ public class Page {
     }
 
     void waitForJs() {
-        sleep(5);
         try {
             wait.until(driver -> ((JavascriptExecutor) driver).executeScript(
                     "return document.readyState").equals("complete"));
