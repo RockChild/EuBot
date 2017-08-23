@@ -73,10 +73,14 @@ public class CheckDetailsPage extends Page {
         sleep(5);
         waitForJs();
         try {
-        js.executeScript("document.getElementById('submit').disabled = false;");
-        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
-        js.executeScript("arguments[0].removeAttribute('disabled')", submit);
-            System.out.println("--------------------I tried everything!!!---------------------");
+            System.out.println("-----------------------------------------------------");
+            System.out.println("Starting removing");
+            System.out.println("-----------------------------------------------------");
+//        js.executeScript("document.getElementById('submit').disabled = false;");
+//        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
+        js.executeScript("arguments[0].removeAttribute('disabled', disabled)", submit);
+//        js.executeScript("arguments[0].removeAttribute('disabled')", submit);
+        System.out.println("--------------------I tried everything!!!---------------------");
         } catch (JavascriptException e) {
             printError(e, "Something wrong with JS");
             if (withCycle) {
