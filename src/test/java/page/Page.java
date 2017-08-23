@@ -40,7 +40,7 @@ public class Page {
             }
         } catch (TimeoutException e) {
             printError(e, "Timeout!!! Element is Disabled! Remove \"disabled \" attribute!");
-            waitSleepClick(element);
+            return;
         }
         catch (WebDriverException e) {
             printError(e, "WD Exception. Rerun");
@@ -57,7 +57,7 @@ public class Page {
         element.click();
     }
 
-    private void printError(Exception e, String errorMessage) {
+    protected void printError(Exception e, String errorMessage) {
         System.out.println(x);
         System.out.println(errorMessage);
         e.printStackTrace();

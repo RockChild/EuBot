@@ -5,6 +5,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Sleeper;
+import org.openqa.selenium.support.ui.SystemClock;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
@@ -29,10 +31,10 @@ public class WDHub {
                     .getAbsolutePath());
         }
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, waitTimeOut)
+//        wait = new WebDriverWait(driver, waitTimeOut);
+        wait = new WebDriverWait(driver, new SystemClock(), Sleeper.SYSTEM_SLEEPER, 300, 250)
                 .ignoring(NoSuchElementException.class)
-                .ignoring(StaleElementReferenceException.class)
-                .pollingEvery(250, TimeUnit.MILLISECONDS);
+                .ignoring(StaleElementReferenceException.class);
         return driver;
     }
 

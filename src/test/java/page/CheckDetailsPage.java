@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,8 +65,23 @@ public class CheckDetailsPage extends Page {
     }
 
     public void removeDisableAttribute() {
+        removeDisabledAttribute(true);
+    }
+
+    public void removeDisabledAttribute(boolean withCycle) {
         waitForJs();
-//        js.executeScript("document.getElementById('submit').disabled = false;");
+        try {
+        js.executeScript("document.getElementById('submit').disabled = false;");
+        js.executeScript("document.getElementById('submit').removeAttribute('disabled');");
         js.executeScript("arguments[0].removeAttribute('disabled')", submit);
+        } catch (JavascriptException e) {
+            printError(e, "Something wrong with JS");
+            if (withCycle) {
+                removeDisabledAttribute(false);
+            } else {
+                printError(e, "it didn't worked, js disabled attr");
+            }
+        }
+
     }
 }
