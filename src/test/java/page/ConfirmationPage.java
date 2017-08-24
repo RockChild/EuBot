@@ -16,7 +16,7 @@ public class ConfirmationPage extends Page {
     public boolean isPageLoaded() {
         try {
             waitForJs();
-            wait.until(ExpectedConditions.visibilityOf(lblPostedOk));
+            getWait().until(ExpectedConditions.visibilityOf(lblPostedOk));
             return true;
         } catch (Exception e) {
             return false;

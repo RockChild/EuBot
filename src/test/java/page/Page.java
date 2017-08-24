@@ -27,17 +27,33 @@ public class Page {
         js = (JavascriptExecutor) driver;
     }
 
+    public FluentWait getWait() {
+        return wait.withTimeout(300, TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(WebDriverException.class);
+    }
+
+    public FluentWait getMiniWait() {
+        return wait.withTimeout(2, TimeUnit.SECONDS)
+                .pollingEvery(250, TimeUnit.MILLISECONDS)
+                .ignoring(NoSuchElementException.class)
+                .ignoring(StaleElementReferenceException.class)
+                .ignoring(WebDriverException.class);
+    }
+
     protected void waitSleepClick(WebElement element) {
         try {
             try {
                 waitForJs();
-                wait.until((ExpectedConditions.visibilityOf(element)));
+                getWait().until((ExpectedConditions.visibilityOf(element)));
             } catch (TimeoutException e) {
                 printError(e, "Timeout!!! Element wasnt found!");
             return;
             }
             if (!element.isEnabled()) {
-                wait.withTimeout(10, TimeUnit.SECONDS).until(ExpectedConditions.elementToBeClickable(element));
+                getWait().until(ExpectedConditions.elementToBeClickable(element));
             }
         } catch (TimeoutException e) {
             printError(e, "Timeout!!! Element is Disabled! Remove \"disabled \" attribute!");
@@ -70,7 +86,7 @@ public class Page {
 
     void waitForJs() {
         try {
-            wait.until(driver -> ((JavascriptExecutor) driver).executeScript(
+            getWait().until(driver -> (js).executeScript(
                     "return document.readyState").equals("complete"));
         } catch (Exception e) {
             System.out.println("Javascript waiter caught an exception. Repeat.");

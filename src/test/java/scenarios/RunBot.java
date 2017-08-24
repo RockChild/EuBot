@@ -9,8 +9,6 @@ import page.ConfirmationPage;
 import page.EnterDetailsPage;
 import util.DataParser;
 
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.AssertJUnit.assertTrue;
@@ -60,23 +58,24 @@ private ConfirmationPage confirmationPage;
             justDoIt(article);
         }
         //todo: need refactor
-        checkDetailsPage.removeDisableAttribute();
-//        if (checkDetailsPage.isArticleDuplicated()) {
-//            System.out.println("Warning: Duplicated!");
-//            checkDetailsPage.removeDisableAttribute();
-//            checkDetailsPage.sumbit();
-//        } else {
-//            checkDetailsPage.sumbit();
-//            System.out.println("Success: Published!");
-//        }
-        checkDetailsPage.sumbit();
+//        checkDetailsPage.removeDisableAttribute();
+        assertTrue("Page CheckDetails wasn't reached", checkDetailsPage.isPageLoaded());
+        if (checkDetailsPage.isArticleDuplicated()) {
+            System.out.println("Warning: Duplicated!");
+            checkDetailsPage.removeDisableAttribute();
+            checkDetailsPage.sumbit();
+            System.out.println("Success: Published!");
+        } else {
+            checkDetailsPage.sumbit();
+            System.out.println("Success: Published!");
+        }
         assertTrue("Confirmation page wasn't loaded", confirmationPage.isPageLoaded());
         System.out.println("Finish");
     }
 
     private void handleAlertIfAppears(String articleBody) {
         try {
-            Alert alert = wait.withTimeout(2, TimeUnit.SECONDS)
+            Alert alert = miniWait.withTimeout(2, TimeUnit.SECONDS)
                     .until(ExpectedConditions.alertIsPresent());
             alert.accept();
             enterDetailsPage

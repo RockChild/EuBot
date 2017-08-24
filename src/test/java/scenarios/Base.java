@@ -8,12 +8,12 @@ import util.WDHub;
 
 public class Base {
     WebDriver driver;
-    FluentWait<WebDriver> wait;
+    FluentWait<WebDriver> miniWait;
 
     @BeforeSuite
     public void beforeSuite() {
         driver = WDHub.build();
-        wait = WDHub.getWait();
+        miniWait = WDHub.getWait();
     }
 
     @AfterSuite
