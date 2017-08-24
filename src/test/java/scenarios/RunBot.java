@@ -8,6 +8,7 @@ import page.CheckDetailsPage;
 import page.ConfirmationPage;
 import page.EnterDetailsPage;
 import util.DataParser;
+import util.ResultsSaver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -32,8 +33,10 @@ private ConfirmationPage confirmationPage;
         for (Article article : DataParser.parse())
             try {
                 justDoIt(article);
+                ResultsSaver.parse(true);
             } catch (Exception e) {
                 System.out.println("Some error. Just call the Police!");
+                ResultsSaver.parse(false);
                 e.printStackTrace();
             }
     }
@@ -84,5 +87,11 @@ private ConfirmationPage confirmationPage;
         } catch (TimeoutException e) {
             //do nothing, it's ok
         }
+    }
+
+    @Test
+    public void testtt() {
+        ResultsSaver.parse(true);
+        ResultsSaver.parse(false);
     }
 }
