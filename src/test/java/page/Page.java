@@ -5,6 +5,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import util.WDHub;
 
 import java.sql.Time;
@@ -36,7 +37,8 @@ public class Page {
     }
 
     public FluentWait getMiniWait() {
-        return wait.withTimeout(2, TimeUnit.SECONDS)
+        return new WebDriverWait(driver, 10)
+                .withTimeout(2, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
                 .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class)

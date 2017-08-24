@@ -62,7 +62,6 @@ private ConfirmationPage confirmationPage;
         assertTrue("Page CheckDetails wasn't reached", checkDetailsPage.isPageLoaded());
         if (checkDetailsPage.isArticleDuplicated()) {
             System.out.println("Warning: Duplicated!");
-            checkDetailsPage.removeDisableAttribute();
             checkDetailsPage.sumbit();
             System.out.println("Success: Published!");
         } else {

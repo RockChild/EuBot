@@ -30,6 +30,7 @@ public class CheckDetailsPage extends Page {
         try {
             waitForJs();
             getWait().until(ExpectedConditions.visibilityOf(lblCurrentTab));
+            System.out.println("Page loaded: " + lblCurrentTab.getText());
             return true;
         } catch (TimeoutException ex) {
             printError(ex, "Tab wasnt opened?????");
@@ -39,6 +40,7 @@ public class CheckDetailsPage extends Page {
 
     public boolean isArticleDuplicated() {
         try {
+            getWait().until(ExpectedConditions.visibilityOf(submit));
             getMiniWait().until(ExpectedConditions.visibilityOf(lblDuplicated));
             return true;
         } catch (TimeoutException ex) {
@@ -59,6 +61,7 @@ public class CheckDetailsPage extends Page {
     }
 
     public void sumbit() {
+        removeDisabledAttribute(true);
         waitSleepClick(submit);
     }
 
@@ -85,6 +88,7 @@ public class CheckDetailsPage extends Page {
         } catch (JavascriptException e) {
             printError(e, "Something wrong with JS");
             if (withCycle) {
+                sleep(1);
                 removeDisabledAttribute(false);
             } else {
                 printError(e, "js disabled attr wasn't removed after 2 turns");
