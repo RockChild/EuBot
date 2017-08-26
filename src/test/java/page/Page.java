@@ -111,4 +111,14 @@ public class Page {
     protected void selectByText(WebElement select, String text) {
         new Select(select).selectByVisibleText(text);
     }
+
+    public void waitForElementVisible(WebElement element) {
+        try {
+            waitForJs();
+            getWait().until((ExpectedConditions.visibilityOf(element)));
+        } catch (TimeoutException e) {
+            printError(e, "Timeout!!! Element wasnt found!");
+        }
+
+    }
 }

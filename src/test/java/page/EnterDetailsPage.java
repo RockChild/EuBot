@@ -34,6 +34,7 @@ public class EnterDetailsPage extends Page {
 
     public EnterDetailsPage open() {
         driver.get(URL);
+        waitForJs();
         return this;
     }
 
@@ -48,9 +49,7 @@ public class EnterDetailsPage extends Page {
     }
 
     public EnterDetailsPage enterTitle(String title) {
-        txtTitle.clear();
-        txtTitle.sendKeys(title);
-        return this;
+        return waitSendKeys(txtTitle, title);
     }
 
     public EnterDetailsPage selectCity(String place) {
@@ -59,15 +58,11 @@ public class EnterDetailsPage extends Page {
     }
 
     public EnterDetailsPage enterCompanyName(String company) {
-        txtCompany.clear();
-        txtCompany.sendKeys(company);
-        return this;
+        return waitSendKeys(txtCompany, company);
     }
 
     public EnterDetailsPage enterEmail(String email) {
-        txtEmail.clear();
-        txtEmail.sendKeys(email);
-        return this;
+        return waitSendKeys(txtEmail, email);
     }
 
     public EnterDetailsPage enterArticleBody(String details) {
@@ -80,6 +75,13 @@ public class EnterDetailsPage extends Page {
 
     public void submit() {
         waitSleepClick(btnSubmit);
+    }
+
+    private EnterDetailsPage waitSendKeys(WebElement element, String text) {
+        waitForElementVisible(element);
+        element.clear();
+        element.sendKeys(text);
+        return this;
     }
 
 }
