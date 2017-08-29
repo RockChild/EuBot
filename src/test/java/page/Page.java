@@ -28,6 +28,10 @@ public class Page {
         js = (JavascriptExecutor) driver;
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
+
     public FluentWait getWait() {
         return wait.withTimeout(300, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
@@ -40,7 +44,6 @@ public class Page {
         return new WebDriverWait(driver, 10)
                 .withTimeout(2, TimeUnit.SECONDS)
                 .pollingEvery(250, TimeUnit.MILLISECONDS)
-                .ignoring(NoSuchElementException.class)
                 .ignoring(StaleElementReferenceException.class)
                 .ignoring(WebDriverException.class);
     }
@@ -49,7 +52,7 @@ public class Page {
         try {
             try {
                 waitForJs();
-                getWait().until((ExpectedConditions.visibilityOf(element)));
+                getWait().until(ExpectedConditions.visibilityOf(element));
             } catch (TimeoutException e) {
                 printError(e, "Timeout!!! Element wasnt found!");
             return;
@@ -60,8 +63,7 @@ public class Page {
         } catch (TimeoutException e) {
             printError(e, "Timeout!!! Element is Disabled! Remove \"disabled \" attribute!");
             return;
-        }
-        catch (WebDriverException e) {
+        } catch (WebDriverException e) {
             printError(e, "WD Exception. Rerun");
             waitSleepClick(element);
         } catch (Exception e) {

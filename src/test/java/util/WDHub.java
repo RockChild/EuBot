@@ -31,6 +31,7 @@ public class WDHub {
                     .getAbsolutePath());
         }
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
 //        wait = new WebDriverWait(driver, waitTimeOut);
         wait = new WebDriverWait(driver, new SystemClock(), Sleeper.SYSTEM_SLEEPER, 300, 250)
                 .ignoring(NoSuchElementException.class)

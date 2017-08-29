@@ -30,7 +30,7 @@ private ConfirmationPage confirmationPage;
 
     @Test
     public void createArticle() {
-        for (Article article : DataParser.parse())
+        for (Article article : DataParser.parse()) {
             try {
                 justDoIt(article);
                 ResultsSaver.parse(true);
@@ -39,6 +39,8 @@ private ConfirmationPage confirmationPage;
                 ResultsSaver.parse(false);
                 e.printStackTrace();
             }
+        }
+        System.out.println("Finish");
     }
 
     private void justDoIt(Article article) {
@@ -65,14 +67,15 @@ private ConfirmationPage confirmationPage;
         assertTrue("Page CheckDetails wasn't reached", checkDetailsPage.isPageLoaded());
         if (checkDetailsPage.isArticleDuplicated()) {
             System.out.println("Warning: Duplicated!");
-            checkDetailsPage.sumbit();
-            System.out.println("Success: Published!");
-        } else {
-            checkDetailsPage.sumbit();
+        }
+        checkDetailsPage.sumbit();
+        if (checkDetailsPage.isServerError()) {
+            System.out.println("Error: 504: Server timeout. Rerun for the same article, it could be published though. \nWhatever.");
+            justDoIt(article);
+        }
+        if (confirmationPage.isPageLoaded()) {
             System.out.println("Success: Published!");
         }
-        assertTrue("Confirmation page wasn't loaded", confirmationPage.isPageLoaded());
-        System.out.println("Finish");
     }
 
     private void handleAlertIfAppears(String articleBody) {
@@ -87,11 +90,5 @@ private ConfirmationPage confirmationPage;
         } catch (TimeoutException e) {
             //do nothing, it's ok
         }
-    }
-
-    @Test
-    public void testtt() {
-        ResultsSaver.parse(true);
-        ResultsSaver.parse(false);
     }
 }

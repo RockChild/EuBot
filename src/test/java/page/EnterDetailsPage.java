@@ -33,47 +33,58 @@ public class EnterDetailsPage extends Page {
     }
 
     public EnterDetailsPage open() {
+        System.out.println("Opening the page");
         driver.get(URL);
         waitForJs();
+        System.out.println("Opened.");
         return this;
     }
 
     public EnterDetailsPage setAgency() {
+        System.out.println("Enetering agency");
         waitSleepClick(rbAgency);
         return this;
     }
 
     public EnterDetailsPage selectCategory(String category) {
+        System.out.println("Selecting category");
         selectByText(selCategory, category);
         return this;
     }
 
     public EnterDetailsPage enterTitle(String title) {
+        System.out.println("Entering title");
         return waitSendKeys(txtTitle, title);
     }
 
     public EnterDetailsPage selectCity(String place) {
+        System.out.println("Selecting city");
         selectByText(selPlace, place);
         return this;
     }
 
     public EnterDetailsPage enterCompanyName(String company) {
+        System.out.println("Entering company name");
         return waitSendKeys(txtCompany, company);
     }
 
     public EnterDetailsPage enterEmail(String email) {
+        System.out.println("Entering e-mail");
         return waitSendKeys(txtEmail, email);
     }
 
     public EnterDetailsPage enterArticleBody(String details) {
+        System.out.println("Entering the article details");
         driver.switchTo().defaultContent(); // you are now outside both frames
         driver.switchTo().frame("imp_redactor_frame_description");
         setValueJs(details);
         driver.switchTo().defaultContent(); // you are now outside both frames
+        System.out.println("Entered.");
         return this;
     }
 
     public void submit() {
+        System.out.println("Submiting");
         waitSleepClick(btnSubmit);
     }
 
