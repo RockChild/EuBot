@@ -84,7 +84,7 @@ public class EnterDetailsPage extends Page {
     }
 
     public void submit() {
-        System.out.println("Submiting");
+        System.out.println("Submiting. Point;)");
         waitSleepClick(btnSubmit);
     }
 

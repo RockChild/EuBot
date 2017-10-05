@@ -1,4 +1,4 @@
 target/
 .idea/
-*.txt
 /src/test/resources/*.json
+/src/test/resources/log.txt

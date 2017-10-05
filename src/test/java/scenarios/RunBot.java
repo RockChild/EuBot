@@ -8,7 +8,8 @@ import page.CheckDetailsPage;
 import page.ConfirmationPage;
 import page.EnterDetailsPage;
 import util.DataParser;
-import util.ResultsSaver;
+import util.Generator;
+import util.TxtParser;
 
 import java.util.concurrent.TimeUnit;
 
@@ -33,10 +34,10 @@ private ConfirmationPage confirmationPage;
         for (Article article : DataParser.parse()) {
             try {
                 justDoIt(article);
-                ResultsSaver.parse(true);
+                TxtParser.parse(true);
             } catch (Exception e) {
                 System.out.println("Some error. Just call the Police!");
-                ResultsSaver.parse(false);
+                TxtParser.parse(false);
                 e.printStackTrace();
             }
         }
@@ -51,8 +52,10 @@ private ConfirmationPage confirmationPage;
                 .selectCategory(article.getCategory())
                 .selectCity(article.getPlace())
                 .enterArticleBody(article.getArticleBody())
-                .enterCompanyName(article.getCompany())
-                .enterEmail(article.getEmail())
+                .enterCompanyName(Generator.generateCompanyName())
+//                .enterCompanyName(article.getCompany())
+                .enterEmail(Generator.generateEmail())
+//                .enterEmail(article.getEmail())
                 .submit();
 
         //Alert in case the article text is too short

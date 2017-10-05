@@ -102,8 +102,9 @@ public class CheckDetailsPage extends Page {
 
     private void waitElementDisappears(final String id) {
         try {
-            System.out.println("Waiting for invisibility of element");
+            System.out.println("Waiting for no elements by id: " + id);
             getWait().until(driver -> getDriver().findElements(By.id(id)).size()==0);
+            System.out.println("Absent. OK!");
         } catch (TimeoutException ex) {
             System.out.println("Negative");
         } catch (NoSuchElementException e) {
